@@ -8,8 +8,8 @@
     <ProjectGuid>{464D2479-9767-4D46-8D67-B6C352C1DE75}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OnTestAutomation</RootNamespace>
-    <AssemblyName>OnTestAutomation</AssemblyName>
+    <RootNamespace>UiAutomationExample</RootNamespace>
+    <AssemblyName>UiAutomationExample</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

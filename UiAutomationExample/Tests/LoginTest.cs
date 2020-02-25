@@ -31,7 +31,7 @@ namespace OnTestAutomation.Tests
         }
 
         [Test]
-        public void LoginWithIncorrectCredentials_ShouldRedirectToLoginErrorPage()
+        public void LoginWithIncorrectCredentials_ShouldDisplayAnErrorMessage()
         {
             new LoginPage(driver)
                 .Load()

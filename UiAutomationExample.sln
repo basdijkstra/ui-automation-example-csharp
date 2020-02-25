@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnTestAutomation", "OnTestAutomation\OnTestAutomation.csproj", "{464D2479-9767-4D46-8D67-B6C352C1DE75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiAutomationExample", "UiAutomationExample\UiAutomationExample.csproj", "{464D2479-9767-4D46-8D67-B6C352C1DE75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
