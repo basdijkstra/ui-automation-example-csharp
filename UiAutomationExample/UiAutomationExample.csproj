@@ -76,8 +76,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Globals\Constants.cs" />
-    <Compile Include="Helpers\DriverMethods.cs" />
+    <Compile Include="Helpers\DriverHelper.cs" />
     <Compile Include="Helpers\SeleniumHelper.cs" />
+    <Compile Include="Helpers\SeleniumHelperWithExpectedConditions.cs" />
     <Compile Include="Pages\LoginErrorPage.cs" />
     <Compile Include="Pages\AccountsOverviewPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />

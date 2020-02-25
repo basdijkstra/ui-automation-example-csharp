@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
-using OnTestAutomation.Pages;
+using UiAutomationExample.Helpers;
+using UiAutomationExample.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace OnTestAutomation.Tests
+namespace UiAutomationExample.Tests
 {
     [TestFixture]
     public class LoginTest
@@ -13,8 +14,7 @@ namespace OnTestAutomation.Tests
         [SetUp]
         public void StartBrowser()
         {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
+            driver = new DriverHelper().CreateDriver();
         }
 
         [Test]

@@ -1,7 +1,7 @@
-﻿using OnTestAutomation.Helpers;
+﻿using UiAutomationExample.Helpers;
 using OpenQA.Selenium;
 
-namespace OnTestAutomation.Pages
+namespace UiAutomationExample.Pages
 {
     public class LoginErrorPage
     {

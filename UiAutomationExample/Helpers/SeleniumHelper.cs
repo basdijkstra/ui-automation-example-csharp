@@ -1,11 +1,10 @@
 ﻿using System;
 using OpenQA.Selenium;
-using OnTestAutomation.Globals;
+using UiAutomationExample.Globals;
 using WebDriverWait = OpenQA.Selenium.Support.UI.WebDriverWait;
-using SeleniumExtras.WaitHelpers;
 using NUnit.Framework;
 
-namespace OnTestAutomation.Helpers
+namespace UiAutomationExample.Helpers
 {
     public class SeleniumHelper
     {
@@ -15,93 +14,102 @@ namespace OnTestAutomation.Helpers
         {
             _driver = driver;
         }
-
-        // Tries to send the given input string to the element specified taking into account the predefined timeout
-        // Catches and handles exceptions that might occur
+        
         public void SendKeys(By by, string valueToType)
         {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
+
+            IWebElement element = wait.Until<IWebElement>(condition => {
+                try
+                {
+                    IWebElement tempElement = _driver.FindElement(by);
+                    return (tempElement.Displayed && tempElement.Enabled) ? tempElement : null;
+                }
+                catch
+                {
+                    return null;
+                }
+            });
+
             try
             {
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT)).Until(ExpectedConditions.ElementIsVisible(by));
-                _driver.FindElement(by).Clear();
-                _driver.FindElement(by).SendKeys(valueToType);
+                element.Clear();
+                element.SendKeys(valueToType);
             }
-            catch (Exception ex) when (ex is NoSuchElementException || ex is WebDriverTimeoutException)
+            catch (NullReferenceException)
             {
-                Assert.Fail($"Exception occurred in SeleniumHelper.SendKeys(): element located by {by.ToString()} could not be located within {Constants.DEFAULT_TIMEOUT} seconds.");
-            }
-            catch (Exception ex) when (ex is StaleElementReferenceException)
-            {
-                // find element again and retry
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT)).Until(ExpectedConditions.ElementIsVisible(by));
-                _driver.FindElement(by).Clear();
-                _driver.FindElement(by).SendKeys(valueToType);
+                Assert.Fail($"Exception occurred in SeleniumHelper.SendKeys(): element located by {by.ToString()} could not be located within 10 seconds.");
             }
         }
 
-        // Tries to click an element taking into account a predefined timeout
-        // This can generate a variety of exception that are all handled in this method
         public void Click(By by)
         {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
+
+            IWebElement element = wait.Until<IWebElement>(condition => {
+                try
+                {
+                    IWebElement tempElement = _driver.FindElement(by);
+                    return (tempElement.Displayed && tempElement.Enabled) ? tempElement : null;
+                }
+                catch
+                {
+                    return null;
+                }
+            });
+
             try
             {
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT)).Until(ExpectedConditions.ElementToBeClickable(by));
-                _driver.FindElement(by).Click();
+                element.Click();
             }
-            catch (Exception ex) when (ex is WebDriverTimeoutException || ex is NoSuchElementException)
+            catch (NullReferenceException)
             {
-                Assert.Fail($"Exception occurred in SeleniumHelper.Click(): element located by {by.ToString()} could not be located within {Constants.DEFAULT_TIMEOUT} seconds.");
+                Assert.Fail($"Exception occurred in SeleniumHelper.Click(): element located by {by.ToString()} could not be located within 10 seconds.");
             }
         }
 
-        // Returns whether an element is visible
-        // Takes into account a predefined timeout
-        // Logs to HTML if the element is not present and visible after this timeout
         public bool CheckElementIsVisible(By by)
         {
-            try
-            {
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT)).Until(ExpectedConditions.ElementIsVisible((by)));
-            }
-            catch (Exception ex) when (ex is NoSuchElementException || ex is WebDriverTimeoutException)
-            {
-                return false;
-            }
-            return true;
-        }
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
 
-        // Waits for an element to be clickable (visible AND enabled)
-        // Takes into account a predefined timeout
-        // Preferred method to be used for determining whether a page has been loaded
-        // See for example all Page Object constructors
-        public bool WaitForElementOnPageLoad(By by)
-        {
-            try
-            {
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT)).Until(ExpectedConditions.ElementToBeClickable(by));
-            }
-            catch (Exception ex) when (ex is NoSuchElementException || ex is WebDriverTimeoutException)
-            {
-                return false;
-            }
-            return true;
+            return wait.Until(condition => {
+                try
+                {
+                    IWebElement tempElement = _driver.FindElement(by);
+                    return tempElement.Displayed;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
         }
-
-        // Returns the value of the text property for the specified element
-        // Mostly used for retrieving values for input elements (text boxes)
-        // Catches and handles exceptions that might occur
+        
         public string GetElementText(By by)
         {
             string returnValue = "";
 
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
+
+            IWebElement element = wait.Until<IWebElement>(condition => {
+                try
+                {
+                    IWebElement tempElement = _driver.FindElement(by);
+                    return tempElement.Displayed ? tempElement : null;
+                }
+                catch
+                {
+                    return null;
+                }
+            });
+
             try
             {
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT)).Until(ExpectedConditions.ElementIsVisible(by));
-                returnValue = _driver.FindElement(by).Text;
+                returnValue = element.Text;
             }
-            catch (Exception ex) when (ex is NoSuchElementException || ex is WebDriverTimeoutException)
+            catch (NullReferenceException)
             {
-                Assert.Fail($"Exception occurred in SeleniumHelper.GetElementText(): element located by {by.ToString()} could not be located within {Constants.DEFAULT_TIMEOUT} seconds.");
+                Assert.Fail($"Exception occurred in SeleniumHelper.Click(): element located by {by.ToString()} could not be located within 10 seconds.");
             }
 
             return returnValue;

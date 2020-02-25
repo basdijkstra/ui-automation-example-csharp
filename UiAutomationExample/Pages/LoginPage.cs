@@ -1,8 +1,8 @@
-﻿using OnTestAutomation.Globals;
-using OnTestAutomation.Helpers;
+﻿using UiAutomationExample.Globals;
+using UiAutomationExample.Helpers;
 using OpenQA.Selenium;
 
-namespace OnTestAutomation.Pages
+namespace UiAutomationExample.Pages
 {
     public class LoginPage
     {

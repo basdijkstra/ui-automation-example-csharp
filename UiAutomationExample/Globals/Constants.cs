@@ -1,4 +1,4 @@
-﻿namespace OnTestAutomation.Globals
+﻿namespace UiAutomationExample.Globals
 {
     public class Constants
     {
