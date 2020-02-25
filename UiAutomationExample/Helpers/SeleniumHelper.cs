@@ -14,31 +14,25 @@ namespace UiAutomationExample.Helpers
         {
             _driver = driver;
         }
-        
+
         public void SendKeys(By by, string valueToType)
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
-
-            IWebElement element = wait.Until<IWebElement>(driver => {
-                try
+            
+            try
+            {
+                IWebElement myElement = wait.Until<IWebElement>(driver =>
                 {
                     IWebElement tempElement = _driver.FindElement(by);
                     return (tempElement.Displayed && tempElement.Enabled) ? tempElement : null;
                 }
-                catch
-                {
-                    return null;
-                }
-            });
-
-            try
-            {
-                element.Clear();
-                element.SendKeys(valueToType);
+                );
+                myElement.Clear();
+                myElement.SendKeys(valueToType);
             }
-            catch (NullReferenceException)
+            catch (WebDriverTimeoutException)
             {
-                Assert.Fail($"Exception occurred in SeleniumHelper.SendKeys(): element located by {by.ToString()} could not be located within 10 seconds.");
+                Assert.Fail($"Exception in SendKeys(): element located by {by.ToString()} not visible and enabled within {Constants.DEFAULT_TIMEOUT} seconds.");
             }
         }
 
@@ -46,25 +40,19 @@ namespace UiAutomationExample.Helpers
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
 
-            IWebElement element = wait.Until<IWebElement>(driver => {
-                try
+            try
+            {
+                IWebElement myElement = wait.Until<IWebElement>(driver =>
                 {
                     IWebElement tempElement = _driver.FindElement(by);
                     return (tempElement.Displayed && tempElement.Enabled) ? tempElement : null;
                 }
-                catch
-                {
-                    return null;
-                }
-            });
-
-            try
-            {
-                element.Click();
+                );
+                myElement.Click();
             }
-            catch (NullReferenceException)
+            catch (WebDriverTimeoutException)
             {
-                Assert.Fail($"Exception occurred in SeleniumHelper.Click(): element located by {by.ToString()} could not be located within 10 seconds.");
+                Assert.Fail($"Exception in Click(): element located by {by.ToString()} not visible and enabled within {Constants.DEFAULT_TIMEOUT} seconds.");
             }
         }
 
@@ -91,25 +79,19 @@ namespace UiAutomationExample.Helpers
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
 
-            IWebElement element = wait.Until<IWebElement>(driver => {
-                try
-                {
-                    IWebElement tempElement = _driver.FindElement(by);
-                    return tempElement.Displayed ? tempElement : null;
-                }
-                catch
-                {
-                    return null;
-                }
-            });
-
             try
             {
-                returnValue = element.Text;
+                IWebElement myElement = wait.Until<IWebElement>(driver =>
+                {
+                    IWebElement tempElement = _driver.FindElement(by);
+                    return (tempElement.Displayed && tempElement.Enabled) ? tempElement : null;
+                }
+                );
+                returnValue = myElement.Text;
             }
-            catch (NullReferenceException)
+            catch (WebDriverTimeoutException)
             {
-                Assert.Fail($"Exception occurred in SeleniumHelper.Click(): element located by {by.ToString()} could not be located within 10 seconds.");
+                Assert.Fail($"Exception in GetElementText(): element located by {by.ToString()} not visible and enabled within {Constants.DEFAULT_TIMEOUT} seconds.");
             }
 
             return returnValue;
