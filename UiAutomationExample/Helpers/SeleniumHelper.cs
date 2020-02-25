@@ -19,7 +19,7 @@ namespace UiAutomationExample.Helpers
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
 
-            IWebElement element = wait.Until<IWebElement>(condition => {
+            IWebElement element = wait.Until<IWebElement>(driver => {
                 try
                 {
                     IWebElement tempElement = _driver.FindElement(by);
@@ -46,7 +46,7 @@ namespace UiAutomationExample.Helpers
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
 
-            IWebElement element = wait.Until<IWebElement>(condition => {
+            IWebElement element = wait.Until<IWebElement>(driver => {
                 try
                 {
                     IWebElement tempElement = _driver.FindElement(by);
@@ -72,7 +72,7 @@ namespace UiAutomationExample.Helpers
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
 
-            return wait.Until(condition => {
+            return wait.Until(driver => {
                 try
                 {
                     IWebElement tempElement = _driver.FindElement(by);
@@ -91,7 +91,7 @@ namespace UiAutomationExample.Helpers
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Constants.DEFAULT_TIMEOUT));
 
-            IWebElement element = wait.Until<IWebElement>(condition => {
+            IWebElement element = wait.Until<IWebElement>(driver => {
                 try
                 {
                     IWebElement tempElement = _driver.FindElement(by);
